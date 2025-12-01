@@ -1,5 +1,16 @@
+import { useSelector } from "react-redux";
+
+
 const Cart = () => {
-    return <div>Welcome to Cart</div>;
+
+    const { cart } = useSelector((state) => state.auth)
+
+    return <div>Welcome to Cart
+        {cart.map((p) => {
+            return <li>{p}</li>
+        })}
+    </div>;
+
 };
 
 export default Cart;
