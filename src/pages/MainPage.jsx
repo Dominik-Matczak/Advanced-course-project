@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../slices/authSlice";
+import ProductList from '../components/ProductList'
+
 
 const MainPage = () => {
     const { token, user } = useSelector((state) => state.auth);
@@ -19,10 +21,11 @@ const MainPage = () => {
                 <ul id="navigation-user-actions" className="flex gap-5">
                     <li>Home</li>
                     <li>Contact</li>
-                    <li>{token ? <li onClick={() => dispatch(logout())}>Logout</li> : <Link to="/login">Login</Link>}</li>
+                    {token ? (<li onClick={() => dispatch(logout())} className="cursor-pointer">Logout</li>) : (<li><Link to="/login">Login</Link></li>)}
                     <li><Link to="/cart">Cart</Link></li>
                 </ul>
             </div>
+            <ProductList />
         </>
     )
 };
