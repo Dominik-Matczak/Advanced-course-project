@@ -10,7 +10,7 @@ const ProductsList = () => {
   if (error) return <p>{error.message}</p>;
 
   return (
-    <div className="grid grid-cols-1 gap-4">
+    <div className="grid grid-cols-1 gap-4 sm:mt-[100px] md:mt-[120px]">
       {products.map((product) => (
         <div key={product.id} className="border p-4 rounded">
           <img src={product.image} className="h-40 mx-auto" />

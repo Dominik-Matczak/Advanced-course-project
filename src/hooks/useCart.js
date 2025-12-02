@@ -56,7 +56,7 @@ const useCart = () => {
     register,
     handleSubmit,
     formState: { errors },
-    trigger
+    trigger,
   } = useForm({
     resolver: zodResolver(orderSchema),
   });

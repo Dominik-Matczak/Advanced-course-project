@@ -15,10 +15,11 @@ export const loginUser = createAsyncThunk(
       const users = await usersRes.json();
       const foundUser = users.find((u) => u.username === username);
       if (!foundUser) throw new Error("User not found");
-      const cartRes = await fetch(
-        `https://fakestoreapi.com/carts/user/${foundUser.id}`
-      );
-      const cart = await cartRes.json();
+      // const cartRes = await fetch(
+      //   `https://fakestoreapi.com/carts/user/${foundUser.id}`
+      // );
+      // const cart = await cartRes.json();
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
       console.log(token, foundUser, cart);
       return {
         token,
