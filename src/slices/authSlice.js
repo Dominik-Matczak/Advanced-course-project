@@ -49,6 +49,7 @@ const authSlice = createSlice({
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       localStorage.removeItem("cart");
+      localStorage.removeItem('orders')
     },
     addToCart: (state, action) => {
         state.cart = [...state.cart, action.payload];

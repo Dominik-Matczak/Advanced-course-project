@@ -9,10 +9,6 @@ const MainPage = () => {
     const { token, user } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        console.log(localStorage)
-    }, [])
-
     return (
         <>
             <div id="navigation" className="flex justify-between p-10 bg-gray-200 text-sm shadow-lg">

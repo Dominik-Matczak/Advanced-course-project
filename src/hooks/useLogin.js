@@ -7,7 +7,6 @@ import { loginUser } from "../slices/authSlice";
 const useLogin = () => {
 
   const dispatch = useDispatch();
-  const { token, user, status } = useSelector((state) => state.auth)
 
   const onSubmit = (userData) => {
     dispatch(loginUser(userData))
