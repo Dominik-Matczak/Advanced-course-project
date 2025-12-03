@@ -16,10 +16,7 @@ const FilterProducts = () => {
       dispatch(setFilterValue({ key, value }));
   };
 
-  useEffect(() => {
-    console.log(filteredProducts)
-  },[filteredProducts])
-
+  
   return (
     <Box
       className="mt-[30px] flex w-[100%] md:basis-1/3"

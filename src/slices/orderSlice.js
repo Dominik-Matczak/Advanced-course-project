@@ -9,7 +9,7 @@ const orderSlice = createSlice({
         addNewOrder: (state, action) => {
             const newOrder = {
                 ...action.payload,
-                createdAt: new Date().toISOString()
+                createdAt: new Date().toLocaleDateString()
             };
 
             state.orders = [...state.orders, newOrder];

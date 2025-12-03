@@ -17,11 +17,6 @@ const MyProfile = () => {
 
   const { user } = useSelector((state) => state.auth);
   const { orders } = useSelector((state) => state.orders);
-  
-  useEffect(() => {
-    console.log(user);
-    console.log(orders)
-  }, [user]);
 
   return (
     user ? <>
@@ -37,7 +32,7 @@ const MyProfile = () => {
         <Container maxWidth="lg" sx={{ mt: 3 }}>
           <Grid container spacing={3}>
 
-            {/* Lewa kolumna */}
+
             <Grid sx={{ width: "100%" }}>
               <Paper elevation={3} sx={{ p: 2, minHeight: 300 }}>
                 <Typography variant="h6" gutterBottom align='center'>
@@ -55,7 +50,7 @@ const MyProfile = () => {
               </Paper>
             </Grid>
 
-            {/* Prawa kolumna */}
+
             <Grid sx={{ width: "100%" }}>
               <Paper 
                 elevation={3} 
@@ -73,7 +68,7 @@ const MyProfile = () => {
                 <List>
   {orders && orders.length > 0 ? (
     orders.map((order, index) => {
-      // Obliczenie łącznej ceny
+
       const totalPrice = order.cart.reduce((sum, item) => sum + item.price, 0);
 
       return (
@@ -82,17 +77,22 @@ const MyProfile = () => {
             Order #{index + 1}
           </Typography>
 
-          {/* Liczba produktów */}
+         
           <Typography variant="body2">
             Products count: {order.cart.length}
           </Typography>
 
-          {/* Łączna cena */}
+         
+          <Typography variant="body2">
+            Created at: {order.createdAt}
+          </Typography>
+
+       
           <Typography variant="body2" sx={{ fontWeight: "bold", mt: 1 }}>
             Total price: ${totalPrice.toFixed(2)}
           </Typography>
 
-          {/* Lista tytułów */}
+         
           <ul style={{ marginTop: 8 }}>
             {order.cart.map((item) => (
               <li key={item.id}>{item.title}</li>

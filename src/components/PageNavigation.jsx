@@ -28,12 +28,6 @@ const  PageNavigation = () => {
                 </label>
             </div>
             <ul id="nav-menu" className="flex gap-6 text-center text-sm justify-around w-screen sm:w-auto sm:gap-10">
-            <li>
-                <Link to='/'>
-                    <FontAwesomeIcon icon={faBookmark} size="2x"/>
-                    <p className="hidden sm:block">Favourites</p>
-                </Link>
-            </li>
             {user ? 
             <li>
                 <Link to='/my-profile'>
