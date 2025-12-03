@@ -59,6 +59,10 @@ const authSlice = createSlice({
     removeFromCart: (state, action) => {
         state.cart = state.cart.filter((_, index) => index !== action.payload);
         localStorage.setItem("cart", JSON.stringify(state.cart));
+    },
+    clearCart: (state) => {
+      state.cart = [];
+      localStorage.removeItem('cart')
     }
   },
   extraReducers: (builder) => {
@@ -82,5 +86,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout, addToCart, removeFromCart} = authSlice.actions;
+export const { logout, addToCart, removeFromCart, clearCart } = authSlice.actions;
 export default authSlice.reducer;

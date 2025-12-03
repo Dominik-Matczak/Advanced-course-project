@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewOrder } from "../slices/orderSlice";
+import { clearCart } from "../slices/authSlice";
 
 const useCart = () => {
   const [currentCartStage, setCurrentCartStage] = useState(1);
@@ -76,6 +77,7 @@ const useCart = () => {
     setTimeout(() => {
         setCurrentCartStage(currentCartStage + 1);
         setIsBtnDisabled(false);
+        dispatch(clearCart())
     }, 1200)
   };
 

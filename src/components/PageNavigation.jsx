@@ -3,13 +3,12 @@ import { faHouse, faBasketShopping, faUser, faBookmark, faArrowRightFromBracket}
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../slices/authSlice";
-import { resetFilters } from "../slices/filterSlice";
 import { setFilterValue } from "../slices/filterSlice";
 import { useFilteredProducts } from "../hooks/useFilteredProducts";
 
 const  PageNavigation = () => {
 
-    const { user } = useSelector((state) => state.auth)
+    const { user, cart } = useSelector((state) => state.auth)
     const dispatch = useDispatch();
 
       const {filters: {title}, } = useFilteredProducts();
@@ -51,7 +50,7 @@ const  PageNavigation = () => {
             <li>
                 <Link to='/cart'>
                     <FontAwesomeIcon icon={faBasketShopping} size="2x"/>
-                    <p className="hidden sm:block">Cart</p>
+                    {cart.length > 0 ? <p>Cart [{cart.length}]</p> : <p>Cart</p>}
                 </Link>
             </li>
             {user &&
