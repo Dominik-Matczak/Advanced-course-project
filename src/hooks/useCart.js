@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -11,6 +11,7 @@ const useCart = () => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.auth.cart);
   const user = useSelector((state) => state.auth.user);
+  const { orders } = useSelector((state) => state.orders)
 
   const handleProcced = async() => {
     if (cart.length === 0) {
@@ -32,6 +33,10 @@ const useCart = () => {
       setCurrentCartStage(currentCartStage - 1);
     }
   };
+
+  useEffect(() => {
+    console.log(orders)
+  },[orders])
 
   const orderSchema = z.object({
     firstname: z.string().min(5, "Name is too short"),
