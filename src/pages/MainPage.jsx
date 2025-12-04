@@ -16,7 +16,7 @@ const MainPage = () => {
         <>
             <Box>
                 <PageNavigation />
-                <Container  className="flex flex-col md:flex-row">
+                <Container  className="flex flex-col md:flex-row gap-5">
                     <FilterProducts/>
                     <ProductList/>
                 </Container>

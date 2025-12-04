@@ -2,38 +2,69 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart } from "../slices/authSlice"
 import { Link } from "react-router-dom";
 import useCart from "../hooks/useCart";
-import { TextField, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
-import { useEffect } from "react";
+import { TextField, FormControl, InputLabel, Select, MenuItem, Box, Paper, Container, Typography, List, ListItem, Button } from "@mui/material";
 
 const Cart = () => {
   const { cart, user } = useSelector((state) => state.auth);
-  const { orders } = useSelector((state) => state.orders);
   const { currentCartStage, handleProcced, handleReturn, register, errors, handleSubmit, onSubmit, isBtnDisabled } = useCart();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log(orders)
-  }, [orders])
+  // WARUNEK DODANY: Jeśli koszyk jest pusty, wyświetl komunikat.
+  if (cart.length === 0) {
+    return (
+      <div className="p-4">
+        <Link to="/">Return to home page</Link>
+        <Typography variant="h2" align="center" sx={{ marginTop: '50px' }}>
+          Your cart is empty
+        </Typography>
+      </div>
+    );
+  }
+  // KONIEC WARUNKU DODANEGO
 
   return (
     <div className="p-4">
       <Link to="/">Return to home page</Link>
-      <h1 className="text-2xl mb-4">Welcome to Cart, current stage: {currentCartStage}</h1>
       
       {currentCartStage === 1 && 
-      <ul>
+
+      <Box>
+        <Container>
+            <Paper elevation={4} sx={{ width: '100%', minHeight: '80vh', padding: '10px', display: 'flex', flexDirection: 'column'}}>
+                <Typography align="center" variant="h4" sx={{marginY: '20px'}}>Your basket</Typography>
+                <List>
+                 
         {cart.map((product, i) => (
-          <li key={i} className="border p-2 mb-2">
-            <img src={product.image} alt={product.title} className="h-16 inline-block mr-4" />
-            {product.title} - ${product.price}
-            <button className="ml-10 p-3 bg-red-500 text-white rounded-lg"onClick={() => dispatch(removeFromCart(i))}>Remove</button>
-          </li>
+          <ListItem key={i} sx={{display: 'flex', gap: '30px'}}>
+            <Paper elevation={3} sx={{padding: '15px', height:'100px', width: '70%', display: 'flex'}} className="align-center justify-center gap-10 sm:justify-between">
+              <img src={product.image} alt={product.title} className="h-16 inline-block mr-4" />
+              <Typography variant="span" className="hidden sm:block text-xs md:text-base">{product.title}</Typography>
+              <button className="p-3 bg-red-500 text-white rounded-lg" onClick={() => dispatch(removeFromCart(i))}>Remove</button>
+            </Paper>
+            <Paper elevation={3} sx={{padding: '15px', height:'100px', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '30%'}}>
+              <Typography variant='span'> ${product.price}</Typography>
+            </Paper>
+          </ListItem>
         ))}
-      </ul>}
+                </List>
+              <Paper elevation={6} sx={{alignSelf: 'flex-end', padding: '15px', height:'100px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '30%', marginTop: 'auto', marginBottom: '20px'}}>
+                <Typography variant="h6">Summary: ${cart.reduce((sum, product) => sum + product.price, 0)}</Typography>
+              </Paper>
+              <Box sx={{alignSelf: 'flex-end', display: 'flex', gap: '20px'}}>
+                  {/* <Button onClick={handleReturn} sx={{padding: '15px', backgroundColor: 'blue', color: "white"}}>Return</Button> */}
+                  <Button onClick={handleProcced} sx={{padding: '15px', backgroundColor: 'green', color: "white"}} color="primary">Procced</Button>
+                </Box>
+            </Paper>  
+        </Container>
+      </Box>
+      }
 
       {currentCartStage === 2 && (
         user === null ? <Link to="/login">To continue, you need to login...</Link> :
-        <form className="flex flex-col w-100 gap-2" onSubmit={handleSubmit(onSubmit)}>
+        
+        <Paper elevation={6} sx={{marginTop: '20px', padding: '20px', display: 'flex', flexDirection: 'column', maxWidth: '500px'}}>
+
+          <form className="flex flex-col max-w-100 gap-2" onSubmit={handleSubmit(onSubmit)}>
 
     <TextField label="First name" {...register('firstname')} />
     {errors?.firstname && <p className="text-red-500">{errors.firstname.message}</p>}
@@ -71,23 +102,15 @@ const Cart = () => {
       )}
     </div>
 
-    <button type="submit" className="mt-4 p-2 bg-blue-500 text-white rounded-lg" disabled={!!isBtnDisabled}>
+    <button type="submit" className="mt-4 p-4 bg-green-600 text-white rounded-lg w-[150px] self-center" disabled={!!isBtnDisabled}>
       Submit
     </button>
   </form>
-)}
-
-      {currentCartStage === 3 &&
-      <div>
-        <h1>Your order has been placed</h1>
-        <h3>Once we notice a transfer from your data, order will be proceeded</h3>
-      </div>
-      }
-
-
-      {currentCartStage > 1 && <button onClick={handleReturn}>return</button>}
-      {currentCartStage < 2 && <button onClick={handleProcced}>procced</button>}
-      
+  <Box sx={{marginTop: '20px', display: 'flex', gap: '20px'}}>
+    <Button onClick={handleReturn} sx={{padding: '10px', backgroundColor: 'blue', color: "white"}}>Return</Button>
+  </Box>
+        </Paper>
+)}    
     </div>
   );
 };

@@ -21,7 +21,7 @@ const MyProfile = () => {
   return (
     user ? <>
       <PageNavigation />
-      <Box sx={{ flexGrow: 1, p: 2, backgroundColor: '#f5f5f5' }}>
+      <Box sx={{ flexGrow: 1, p: 2 }}>
 
         <Paper elevation={0} sx={{ mt: 2, p: 1, borderBottom: '1px solid #ccc' }}>
           <Typography variant="subtitle1" align="center">

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewOrder } from "../slices/orderSlice";
 import { clearCart } from "../slices/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const useCart = () => {
   const [currentCartStage, setCurrentCartStage] = useState(1);
@@ -13,6 +14,7 @@ const useCart = () => {
   const cart = useSelector((state) => state.auth.cart);
   const user = useSelector((state) => state.auth.user);
   const { orders } = useSelector((state) => state.orders)
+  const navigate = useNavigate();
 
   const handleProcced = async() => {
     if (cart.length === 0) {
@@ -44,15 +46,14 @@ const useCart = () => {
     lastname: z.string().min(6, "Last name is too short"),
     city: z.string().min(3, "City name is invalid"),
     street: z.string().min(6, "Street's data is invalid"),
-    zipcode: z.string().regex(/^\d{2}-\d{3}$/, {
+    zipcode: z.string().regex(/^\d{5}-\d{4}$/, {
       message: "Invalid zip-code, Check format XX-XXX",
     }),
     phone: z
       .string()
-      .regex(/^[0-9]{9}$/, {
+      .regex(/^[0-9]-\d{3}-\d{3}-\d{4}$/, {
         message: "Phone number must contain 9 digits",
-      })
-      .max(9, "Phone number is too long"),
+      }),
     paymentMethod: z.enum(["traditional"], {
     errorMap: () => ({ message: "Please select a payment method" }),
   }),
@@ -65,6 +66,14 @@ const useCart = () => {
     trigger,
   } = useForm({
     resolver: zodResolver(orderSchema),
+    defaultValues: {
+      firstname: user?.name?.firstname,
+      lastname: user?.name?.lastname,
+      street: user?.address?.street,
+      zipcode: user?.address?.zipcode,
+      city: user?.address?.city,
+      phone: user?.phone
+    }
   });
 
   const onSubmit = (data) => {
@@ -75,14 +84,15 @@ const useCart = () => {
         user
     }))
     setTimeout(() => {
-        setCurrentCartStage(currentCartStage + 1);
         setIsBtnDisabled(false);
         dispatch(clearCart())
+        navigate('/order-success')
     }, 1200)
   };
 
   return {
     currentCartStage,
+    setCurrentCartStage,
     handleProcced,
     handleReturn,
     register,
