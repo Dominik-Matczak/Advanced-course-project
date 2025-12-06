@@ -16,20 +16,11 @@ const useCart = () => {
   const { orders } = useSelector((state) => state.orders)
   const navigate = useNavigate();
 
-  const handleProcced = async() => {
-    if (cart.length === 0) {
-        return;
-    }
-    if (currentCartStage === 2) {
-        const isValid = await trigger();
-        if (!isValid) return;
-    } else {
-        setCurrentCartStage(currentCartStage + 1);
-    }
-    if (currentCartStage < 3) {
-      setCurrentCartStage(currentCartStage + 1);
+const handleProcced = async() => {
+    if (cart.length !== 0) {
+      setCurrentCartStage(currentCartStage + 1)
     } 
-  };
+};
 
   const handleReturn = () => {
     if (currentCartStage > 1) {

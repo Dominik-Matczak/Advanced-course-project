@@ -18,11 +18,11 @@ const Login = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex items-center justify-center h-screen bg-blue-100"
+      className="flex items-center justify-center h-screen"
     >
       <Box
         component="div"
-        className="p-10 w-120 flex flex-col bg-white rounded-lg shadow-2xl gap-5"
+        className="p-10 w-120 flex flex-col rounded-lg shadow-2xl gap-5"
       >
         <Typography variant="h5" component="h1" textAlign="center" gutterBottom>
           Use your data to log in

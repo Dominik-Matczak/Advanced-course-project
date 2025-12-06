@@ -9,7 +9,6 @@ const Cart = () => {
   const { currentCartStage, handleProcced, handleReturn, register, errors, handleSubmit, onSubmit, isBtnDisabled } = useCart();
   const dispatch = useDispatch();
 
-  // WARUNEK DODANY: Jeśli koszyk jest pusty, wyświetl komunikat.
   if (cart.length === 0) {
     return (
       <div className="p-4">
@@ -20,7 +19,7 @@ const Cart = () => {
       </div>
     );
   }
-  // KONIEC WARUNKU DODANEGO
+
 
   return (
     <div className="p-4">
@@ -36,10 +35,10 @@ const Cart = () => {
                  
         {cart.map((product, i) => (
           <ListItem key={i} sx={{display: 'flex', gap: '30px'}}>
-            <Paper elevation={3} sx={{padding: '15px', height:'100px', width: '70%', display: 'flex'}} className="align-center justify-center gap-10 sm:justify-between">
+            <Paper elevation={3} sx={{padding: '15px', height:'100px', minWidth: '70%', display: 'flex'}} className="align-center justify-center gap-2 sm:justify-between">
               <img src={product.image} alt={product.title} className="h-16 inline-block mr-4" />
               <Typography variant="span" className="hidden sm:block text-xs md:text-base">{product.title}</Typography>
-              <button className="p-3 bg-red-500 text-white rounded-lg" onClick={() => dispatch(removeFromCart(i))}>Remove</button>
+              <button className="p-3 bg-red-500 text-white rounded-lg h-[30px] self-center" onClick={() => dispatch(removeFromCart(i))}>Remove</button>
             </Paper>
             <Paper elevation={3} sx={{padding: '15px', height:'100px', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '30%'}}>
               <Typography variant='span'> ${product.price}</Typography>
@@ -48,10 +47,9 @@ const Cart = () => {
         ))}
                 </List>
               <Paper elevation={6} sx={{alignSelf: 'flex-end', padding: '15px', height:'100px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '30%', marginTop: 'auto', marginBottom: '20px'}}>
-                <Typography variant="h6">Summary: ${cart.reduce((sum, product) => sum + product.price, 0)}</Typography>
+                <p variant="h6" className="text-sm">Summary: ${cart.reduce((sum, product) => sum + product.price, 0)}</p>
               </Paper>
               <Box sx={{alignSelf: 'flex-end', display: 'flex', gap: '20px'}}>
-                  {/* <Button onClick={handleReturn} sx={{padding: '15px', backgroundColor: 'blue', color: "white"}}>Return</Button> */}
                   <Button onClick={handleProcced} sx={{padding: '15px', backgroundColor: 'green', color: "white"}} color="primary">Procced</Button>
                 </Box>
             </Paper>  
