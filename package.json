@@ -7,12 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-<<<<<<< HEAD
     "test:unit": "vitest",
     "test:e2e": "playwright test",
-=======
     "test": "vitest",
->>>>>>> d67536352090c2c3fe5a2faeaaa0dfbdf8ffe5f9
     "test:ui": "vitest --ui"
   },
   "keywords": [],
@@ -53,8 +50,4 @@
     "vite": "^7.2.4",
     "vitest": "^4.0.14"
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> d67536352090c2c3fe5a2faeaaa0dfbdf8ffe5f9
