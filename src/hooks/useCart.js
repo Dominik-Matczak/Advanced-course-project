@@ -37,7 +37,7 @@ const handleProcced = async() => {
     lastname: z.string().min(6, "Last name is too short"),
     city: z.string().min(3, "City name is invalid"),
     street: z.string().min(6, "Street's data is invalid"),
-    zipcode: z.string().regex(/^\d{5}-\d{4}$/, {
+    zipcode: z.string().regex(/^(\d{5}-\d{4}|\d{2}-\d{3})$/, {
       message: "Invalid zip-code, Check format XX-XXX",
     }),
     phone: z

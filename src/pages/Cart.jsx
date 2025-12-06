@@ -87,6 +87,7 @@ const Cart = () => {
       <FormControl fullWidth>
         <InputLabel id="payment-label">Payment Method</InputLabel>
         <Select
+        name="paymentMethod"
           labelId="payment-label"
           label="Payment Method"
           defaultValue=""

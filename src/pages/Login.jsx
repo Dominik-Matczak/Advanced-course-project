@@ -11,7 +11,7 @@ const Login = () => {
 
     useEffect(() => {
         if (status === "succeeded" && token && user) {
-            navigate(-1); // strona główna
+            navigate('/');
         }
     }, [status, token, user, navigate]);
 
