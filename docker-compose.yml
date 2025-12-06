@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+
+  frontend-app:
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: frontend-app
+
+    ports:
+      - "3000:80"
+    restart: always
+    
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+
+
+  frontend-tests:
+    image: node:22-slim 
+    container_name: frontend-tests
+    working_dir: /app
+    
+    volumes:
+      - .:/app
+    environment:
+      - PLAYWRIGHT_BASE_URL=http://frontend-app:80
+      - CI=true 
+
+    depends_on:
+      frontend-app:
+        condition: service_healthy
+
+    command: >
+      sh -c "apt-get update && 
+             apt-get install -y libnss3 libnspr4 libgconf-2-4 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm-dev libxkbcommon-x11-0 libgbm-dev libasound2 && 
+             npm install && 
+             npx playwright install --with-deps && 
+             npm run test
+            " 
+    
+    profiles:
+      - tests 
+
+# Definicja wolumenów dla cachowania
+volumes:
+  npm_cache:

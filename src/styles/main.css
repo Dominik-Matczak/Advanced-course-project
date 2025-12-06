@@ -1,0 +1,11 @@
+@import 'tailwindcss';
+
+* {
+    box-sizing: border-box;
+}
+ 
+
+.dark {
+    background-color: rgb(33, 33, 33);
+    color: white;
+}
