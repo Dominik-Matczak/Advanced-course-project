@@ -2,7 +2,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart } from "../slices/authSlice"
 import { Link } from "react-router-dom";
 import useCart from "../hooks/useCart";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { TextField, FormControl, InputLabel, Select, MenuItem, Box, Paper, Container, Typography, List, ListItem, Button } from "@mui/material";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Cart = () => {
   const { cart, user } = useSelector((state) => state.auth);
@@ -35,13 +37,11 @@ const Cart = () => {
                  
         {cart.map((product, i) => (
           <ListItem key={i} sx={{display: 'flex', gap: '30px'}}>
-            <Paper elevation={3} sx={{padding: '15px', height:'100px', minWidth: '70%', display: 'flex'}} className="align-center justify-center gap-2 sm:justify-between">
+            <Paper elevation={3} sx={{padding: '15px', height:'100px', width: '100%', display: 'flex'}} className="align-center justify-between gap-2 sm:justify-between">
               <img src={product.image} alt={product.title} className="h-16 inline-block mr-4" />
               <Typography variant="span" className="hidden sm:block text-xs md:text-base">{product.title}</Typography>
-              <button className="p-3 bg-red-500 text-white rounded-lg h-[30px] self-center" onClick={() => dispatch(removeFromCart(i))}>Remove</button>
-            </Paper>
-            <Paper elevation={3} sx={{padding: '15px', height:'100px', display: 'flex', alignItems: 'center', justifyContent: 'center', width: '30%'}}>
-              <Typography variant='span'> ${product.price}</Typography>
+              <Typography variant='span' className="self-center"> ${product.price}</Typography>
+              <button className="p-3 bg-red-500 text-white rounded-lg h-[30px] self-center flex items-center" onClick={() => dispatch(removeFromCart(i))}><FontAwesomeIcon icon={faTrash} /></button>
             </Paper>
           </ListItem>
         ))}

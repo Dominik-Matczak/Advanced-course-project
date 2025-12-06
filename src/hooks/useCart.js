@@ -28,10 +28,6 @@ const handleProcced = async() => {
     }
   };
 
-  useEffect(() => {
-    console.log(orders)
-  },[orders])
-
   const orderSchema = z.object({
     firstname: z.string().min(5, "Name is too short"),
     lastname: z.string().min(6, "Last name is too short"),
