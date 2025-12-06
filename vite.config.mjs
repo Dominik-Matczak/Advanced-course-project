@@ -8,7 +8,6 @@ export default defineConfig({
     open: true,
   },
   test: {
-    exclude: ['**/node_modules/**', '**/dist/**', '**/src/e2e/**'],
     coverage: {
       reporter: ['cobertura', 'json', 'html']
     },
